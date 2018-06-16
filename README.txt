@@ -1,11 +1,5 @@
 https://www.geeksforgeeks.org/fundamentals-of-algorithms/#AnalysisofAlgorithms
 
-Why Core SNLP over NLTK: 
-- Semantic model
-- train our own entities 
-it's NER classifier, dependency parsers and chart/functional parsers are great tools to work with grammatical functions(subj, obj, pred).
-
-
 Class and Object and Enum 
 - Class is a blueprint that describes the behaviour/state of that object it supports. 
 - Object is an instance of a class (like a member)
