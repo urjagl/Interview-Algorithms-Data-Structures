@@ -1,0 +1,11 @@
+Design: 
+
+- Deck of Cards
+- Model the animal kingdom as a class system
+- Create a class design to represent a filesystem.
+- Design an OO representation to model HTML
+- Design a parking garage
+- Design a bank of elevators in a skyscraper 
+- Model the monorail system in Disney world
+- restaurant-reservation system 
+- Hotel room-reservation system 

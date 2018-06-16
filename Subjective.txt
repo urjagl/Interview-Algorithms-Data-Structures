@@ -1,0 +1,17 @@
+https://practice.geeksforgeeks.org/company/Google/ - Subjective questions - done 
+https://sites.google.com/site/ steveyegge2/five-essential-phone-screen-questions Done
+
+https://gist.github.com/KWMalik/3734578 - github questions 
+
+Ernest notes: 
+
+If I have time then do this: 
+
+https://www.careercup.com/page?pid=google-interview-questions&job=software-engineer-intern-interview-questions&topic=string-manipulation-interview-questions
+
+
+Make a list of the worse case, average best of insert delete traverse, of all data structrues 
+
+
+
+
