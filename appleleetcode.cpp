@@ -78,23 +78,6 @@ vector<int> productExceptSelf(vector<int>& nums) {
         
     }
 
-//Level Order Traversal:
-
-vector<vector<int>> ret;
-void buildVector(TreeNode *root, int depth){
-    if(root == NULL) return;
-    if(ret.size() == depth)
-        ret.push_back(vector<int>());
-    
-    ret[depth].push_back(root->val);
-    buildVector(root->left, depth + 1);
-    buildVector(root->right, depth + 1);
-}
-
-vector<vector<int> > levelOrder(TreeNode *root) {
-    buildVector(root, 0);
-    return ret;
-}
 
 //Hamming weight:
 
@@ -271,7 +254,9 @@ double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
         }
         int k = (m + n) / 2;
         size_t p = 0, q = 0;
-        int res = 0, last = res, c = -1;
+        int res = 0;
+        int last = res;
+        int c = -1;
         while (p < m && q < n && c < k) {
             last = res;
             if (nums1[p] < nums2[q]) {
@@ -329,7 +314,13 @@ void reverseword(string &s, int i, int j){
         reverseword(s,0,j-1);                  // reverse whole string
     }
 
-
+void reverseWords(string &s) {
+        istringstream is(s);
+        is >> s;
+        string str;
+        while(is >> str) s = str + " " + s; 
+        if (s.empty() || s[0] == ' ') s = "";
+    }
 
 
 // Rotated matrix

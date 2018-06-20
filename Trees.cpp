@@ -64,7 +64,7 @@ int heightIterative(TreeNode *t){
 		height++;
 		while(Nodecount > 0){
 			TreeNode *t = q.front();
-			q.pop();
+			q.pop(); 
 			if(t->left != NULL) q.push(t->left);
 			if(t->right != NULL) q.push(t->right);
 			Nodecount--;
@@ -81,7 +81,7 @@ struct TNode* sortedArrayToBST(int arr[], int start, int end)
  
     /* Get the middle element and make it root */
     int mid = (start + end)/2;
-    struct TNode *root = newNode(arr[mid]);
+    struct TNode *root = new Node(arr[mid]);
  
     /* Recursively construct the left subtree and make it
        left child of root */
@@ -96,30 +96,32 @@ struct TNode* sortedArrayToBST(int arr[], int start, int end)
 
 
 // Find the k-th element in a bst 
-void kthLargestUtil(Node *root, int k, int &c)
-{
+void kthLargestUtil(Node *root, int k, int &c){
     // Base cases, the second condition is important to
     // avoid unnecessary recursive calls
     if (root == NULL || c >= k)
         return;
- 
     // Follow reverse inorder traversal so that the
     // largest element is visited first
     kthLargestUtil(root->right, k, c);
- 
     // Increment count of visited nodes
     c++;
- 
     // If c becomes k now, then this is the k'th largest 
     if (c == k)
     {
-        cout << "K'th largest element is "
-             << root->key << endl;
+        cout << "K'th largest element is " << root->key << endl;
         return;
     }
- 
     // Recur for left subtree
     kthLargestUtil(root->left, k, c);
+}
+
+void kthLargest(Node *root, int k)
+{
+    // Initialize count of nodes visited as 0
+    int c = 0;
+    // Note that c is passed by reference
+    kthLargestUtil(root, k, c);
 }
 
 // Finding the k-th smallest element in a BST
@@ -220,7 +222,142 @@ void inOrderSearch(TreeNode* root,vector<int>& tmp,int k)
     }
 }
 
-};
-- red-black tree 
-- rotate a tree 
+// Boundary Tree Traversal:
 
+void printBoundary (struct node* root)
+{
+    if (root)
+    {
+        printf("%d ",root->data);
+        // Print the left boundary in top-down manner.
+        printBoundaryLeft(root->left);
+        // Print all leaf nodes
+        printLeaves(root->left);
+        printLeaves(root->right);
+        // Print the right boundary in bottom-up manner
+        printBoundaryRight(root->right);
+    }
+}
+
+void printBoundaryLeft(struct node* root)
+{
+    if (root)
+    {
+        if (root->left)
+        {
+            // to ensure top down order, print the node
+            // before calling itself for left subtree
+            printf("%d ", root->data);
+            printBoundaryLeft(root->left);
+        }
+        else if( root->right )
+        {
+            printf("%d ", root->data);
+            printBoundaryLeft(root->right);
+        }
+        // do nothing if it is a leaf node, this way we avoid
+        // duplicates in output
+    }
+}
+
+void printBoundaryRight(struct node* root)
+{
+    if (root)
+    {
+        if ( root->right )
+        {
+            // to ensure bottom up order, first call for right
+            //  subtree, then print this node
+            printBoundaryRight(root->right);
+            printf("%d ", root->data);
+        }
+        else if ( root->left )
+        {
+            printBoundaryRight(root->left);
+            printf("%d ", root->data);
+        }
+       // do nothing if it is a leaf node, this way we avoid
+       // duplicates in output
+    }
+}
+
+void printLeaves(struct node* root)
+{
+    if ( root )
+    {
+        printLeaves(root->left);
+ 
+        // Print it if it is a leaf node
+        if ( !(root->left)  &&  !(root->right) )
+            printf("%d ", root->data);
+ 
+        printLeaves(root->right);
+    }
+}
+
+//Level Order Traversal:
+
+vector<vector<int>> ret;
+
+void buildVector(TreeNode *root, int depth){
+    if(root == NULL) return;
+    if(ret.size() == depth){
+        ret.push_back(vector<int>());
+    }
+    ret[depth].push_back(root->val);
+    buildVector(root->left, depth + 1);
+    buildVector(root->right, depth + 1);
+}
+
+vector<vector<int> > levelOrder(TreeNode *root) {
+    buildVector(root, 0);
+    return ret;
+}
+
+// Function to find the maximum sum of a level in tree
+// using level order traversal
+int maxLevelSum(struct Node * root)
+{
+    // Base case
+    if (root == NULL)
+        return 0;
+ 
+    // Initialize result
+    int result = root->data;
+ 
+    // Do Level order traversal keeping track of number
+    // of nodes at every level.
+    queue<Node*> q;
+    q.push(root);
+    while (!q.empty())
+    {
+        // Get the size of queue when the level order
+        // traversal for one level finishes
+        int count = q.size() ;
+ 
+        // Iterate for all the nodes in the queue currently
+        int sum = 0;
+        while (count--)
+        {
+            // Dequeue an node from queue
+            Node *temp = q.front();
+            q.pop();
+ 
+            // Add this node's value to current sum.
+            sum = sum + temp->data;
+ 
+            // Enqueue left and right children of
+            // dequeued node
+            if (temp->left != NULL)
+                q.push(temp->left);
+            if (temp->right != NULL)
+                q.push(temp->right);
+        }
+ 
+        // Update the maximum node count value
+        result = max(sum, result);
+    }
+ 
+    return result;
+}
+ 

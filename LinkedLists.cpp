@@ -1,4 +1,4 @@
-struct Node{
+class Node{
 	int data; 
 	Node *next;
 }
@@ -247,7 +247,37 @@ void deleteMiddle(LinkedListNode *n){
 
 // adding two linked lists (7->1->6) + (5->9->2) = 617+295 = 912
 
-
+ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
+        ListNode *head = NULL;
+        ListNode *cur = NULL;
+        ListNode *prev = NULL;
+        int carry = 0;
+        while (l1 || l2 ){
+            int sum = 0;
+            sum = (l1? l1->val: 0) + (l2? l2-> val: 0) + carry;
+            carry = sum / 10;
+            int value = sum % 10;
+            cur = new ListNode(value);
+            cur->val = value;
+            cur->next = NULL;
+            if(head == NULL){
+                head = cur;
+            }
+            else{
+                prev->next = cur;
+            }
+            l1 = l1 ? l1->next : l1;
+            l2 = l2 ? l2->next : l2;
+            prev = cur;
+            if(!l1 && !l2 && carry >  0){
+            cur = new ListNode(value);
+            cur->val = carry;
+            cur->next = NULL;
+            prev->next = cur;
+            }
+        }
+         return head;
+    }
 
 // Swap a linked list nodes 
 
